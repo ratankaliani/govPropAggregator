@@ -19,7 +19,7 @@ class TestProposalController(BaseTestCase):
         """
         query_string = [('timeblock', 24*60*60)]
         response = self.client.open(
-            '/ratan00/ProposalBot/1.0.0/proposal/getProposals',
+            '/proposal/getProposals',
             method='GET',
             query_string=query_string)
         self.assert200(response,

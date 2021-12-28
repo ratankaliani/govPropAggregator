@@ -36,7 +36,7 @@ class Compound:
             link = "https://compound.finance/governance/proposals/" + str(id)
             
             proposals.append(Proposal(id, platform, title, endTime, txHash, state, link))
-        # print(proposals)
+        print(proposals)
         return proposals
 
     # print(getProposals())

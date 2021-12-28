@@ -37,53 +37,48 @@ class Uniswap:
 
         response = requests.post(url, json = {'query': query}, headers=header) 
         
+        
 
 
         blockNum = Uniswap.getBlockNumber()
 
-        data = response.json()['data']
+        data1 = response.json()['data']
         # print(data)
+
+
+        # Arr00 API
+        url = ("https://uni.vote/api/governance/proposals")
+        header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
+        response = requests.get(url, headers=header)
+        data2 = response.json()
+
         proposals = []
         # # Can use in future to collect data on all proposals
         # num_pages = data['pagination_summary']['total_pages']
 
         # # Processing Proposals
-        for proposal in data["proposals"]:
+        for i in range(len(data1["proposals"])):
+        # for proposal in data["proposals"]:
+            # endBlock, id
+            proposal1 = data1["proposals"][i]
             
-            id = proposal["id"]
+
+            id = proposal1["id"]
             platform = "Uniswap"
-            endBlock = int(proposal['endBlock'])
+            endBlock = int(proposal1['endBlock'])
             # Need to get title added to Uniswap Subgraph
-            desc = proposal['description']
-            # Desc Formatting
-            # Check if markdown
-            # nL = desc.find("\n")
-            # ind = desc.find("##")
-            # minInd = min(nL, ind)
-            # newStr = desc[: minInd]
-            # pattern = re.compile('#')
-            # title = pattern.sub('', newStr)
-            # print(title)
-            # state definitions for future extensions
-            stateDefinition = {
-                "canceled": -2,
-                "failed": -1,
-                "pending": 0,
-                "active": 1,
-                "succeeded": 2,
-                "queued": 4,
-                "executed": 5
-            }
-            state = proposal["status"]
+            
+            # title, url, state
+            proposal2 = data2["proposals"][i]
+            title = proposal2["title"]
+            state = proposal2["state"]["value"]
             state = state.lower()
-            # Only for active & pending proposals for right now (bot)
-            # print(stat)
-            link = "https://sybil.org/#/proposals/uniswap/" + str(id)
+            link = proposal2["uniswap_url"]
             endTime = int(time.time() + 13.5 * (int(endBlock) - blockNum))
 
             # No TxHash
             # print(endTime)
-            proposals.append(Proposal(id, platform, None, endTime, None, state, link))
+            proposals.append(Proposal(id, platform, title, endTime, None, state, link))
         # print(proposals)
         return proposals
 

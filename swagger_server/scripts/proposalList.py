@@ -29,7 +29,6 @@ def getProposals(timeblock):
         print(proposal.link)
         if proposal.end_time and proposal.end_time > cutoff:
             recentProposals.append(proposal)
-            date = proposal.getEndDate()
     return recentProposals
 
 def test():

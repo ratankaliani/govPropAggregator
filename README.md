@@ -47,3 +47,7 @@ docker build -t swagger_server .
 # starting up a container
 docker run -p 8080:8080 swagger_server
 ```
+
+## Example Query
+
+http://localhost:8080/ratan00/ProposalBot/1.0.0/proposal/getProposals?timeblock=50000
