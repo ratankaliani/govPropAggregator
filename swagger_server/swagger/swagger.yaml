@@ -1,0 +1,97 @@
+---
+swagger: "2.0"
+info:
+  description: "API to query DeFi governance proposals\n"
+  version: "1.0.0"
+  title: "Governance Proposals"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "ratan@berkeley.edu"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/ratan00/ProposalBot/1.0.0"
+tags:
+- name: "proposal"
+  description: "Get Active DeFi governance proposals"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /proposal/getProposals:
+    get:
+      tags:
+      - "proposal"
+      summary: "Gets List of Proposals"
+      operationId: "get_proposals"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "timeblock"
+        in: "query"
+        description: "Querying proposals over the last [timeblock] seconds"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Proposal"
+        "400":
+          description: "Invalid timeblock"
+        "500":
+          description: "API errored"
+      x-swagger-router-controller: "swagger_server.controllers.proposal_controller"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Proposal:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 100
+      platform:
+        type: "string"
+        example: "Compound"
+      title:
+        type: "string"
+        example: "Add Market: FEI"
+      endTime:
+        type: "integer"
+        format: "int64"
+        example: 69420000
+      txHash:
+        type: "string"
+        example: "0xec405bcd169633c0d8edc8ef869e164e42b9ec1e"
+      status:
+        type: "string"
+        example: "active"
+        description: "active, canceled, defeated, pending, queued, succeeded"
+      link:
+        type: "string"
+        example: "https://compound.finance/governance/proposals/76"
+    xml:
+      name: "Proposal"
+    example:
+      link: "https://compound.finance/governance/proposals/76"
+      id: 100
+      endTime: 69420000
+      title: "Add Market: FEI"
+      txHash: "0xec405bcd169633c0d8edc8ef869e164e42b9ec1e"
+      platform: "Compound"
+      status: "active"
+externalDocs:
+  description: "ProposalBot v1"
+  url: "http://swagger.io"
