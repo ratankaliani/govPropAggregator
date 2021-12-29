@@ -35,8 +35,9 @@ paths:
       - name: "timeblock"
         in: "query"
         description: "Querying proposals over the last [timeblock] seconds"
-        required: true
+        required: false
         type: "integer"
+        default: 86400
       responses:
         "200":
           description: "successful operation"

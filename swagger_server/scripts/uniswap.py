@@ -22,10 +22,9 @@ class Uniswap:
         # Get last block number
         url = ("https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2")
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
-        # limit at 10 proposals
         query = """query {
             
-            proposals(orderBy: endBlock, orderDirection: desc, first: 10) {
+            proposals(orderBy: endBlock, orderDirection: desc) {
                 id
                 status
                 endBlock
@@ -51,6 +50,7 @@ class Uniswap:
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
         response = requests.get(url, headers=header)
         data2 = response.json()
+        print(data2)
 
         proposals = []
         # # Can use in future to collect data on all proposals

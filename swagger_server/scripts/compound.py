@@ -19,8 +19,18 @@ class Compound:
         data = response.json()
         proposals = []
         # Can use in future to collect data on all proposals
-        num_pages = data['pagination_summary']['total_pages']
+        total_entries = data['pagination_summary']['total_entries']
 
+        params = {
+            'page_size': total_entries
+        }
+        url = ("https://api.compound.finance/api/v2/governance/proposals")
+        header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
+        response = requests.get(url, headers=header, params=params) 
+        # print(response.json())
+
+        data = response.json()
+        proposals = []
         # Processing Proposals
         for proposal in data["proposals"]:
             
@@ -28,15 +38,17 @@ class Compound:
             # print(title)
             id = proposal["id"]
             platform = "Compound"
-
-
+            
             state = proposal["states"][-1]
             endTime = state["end_time"]
+            if endTime is None:
+                endTime = state['start_time']
             txHash = state["trx_hash"]
             link = "https://compound.finance/governance/proposals/" + str(id)
+            status = state['state']
             
-            proposals.append(Proposal(id, platform, title, endTime, txHash, state, link))
-        print(proposals)
+            proposals.append(Proposal(id, platform, title, endTime, txHash, status, link))
+        # print(proposals)
         return proposals
 
     # print(getProposals())

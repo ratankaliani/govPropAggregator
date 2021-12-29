@@ -23,7 +23,7 @@ class Aave:
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
         # limit at 10 proposals
         query = """query {
-            proposals(orderBy: endBlock, orderDirection: desc, first: 10) {
+            proposals(orderBy: endBlock, orderDirection: desc) {
             id
             state
             startBlock
@@ -73,7 +73,8 @@ class Aave:
             # No TxHash
             # print(endTime)
             proposals.append(Proposal(id, platform, title, endTime, None, state, link))
-        # print(proposals)
+        # print("Aave")
+        # print(len(proposals))
         return proposals
 
     # print(getProposals())
