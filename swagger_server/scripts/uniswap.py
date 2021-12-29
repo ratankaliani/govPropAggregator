@@ -50,9 +50,18 @@ class Uniswap:
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
         response = requests.get(url, headers=header)
         data2 = response.json()
-        print(data2)
+        # print(data2)
 
+        total_entries = data2['pagination_summary']['total_entries']
+
+        params = {
+            'page_size': total_entries
+        }
+        url = ("https://api.compound.finance/api/v2/governance/proposals")
+        header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
+        response = requests.get(url, headers=header, params=params) 
         proposals = []
+
         # # Can use in future to collect data on all proposals
         # num_pages = data['pagination_summary']['total_pages']
 
