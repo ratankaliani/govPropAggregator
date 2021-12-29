@@ -18,7 +18,8 @@ class Uniswap:
         blockNumber = int(data['height'])
         return blockNumber
 
-    def getProposals():
+    # print(getProposals())
+    def getProposalsFast(timeblock):
         # Get last block number
         url = ("https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2")
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
@@ -83,12 +84,15 @@ class Uniswap:
             state = proposal2["state"]["value"]
             state = state.lower()
             link = proposal2["uniswap_url"]
-            endTime = int(time.time() + 13.5 * (int(endBlock) - blockNum))
+            currTime = time.time()
+            endTime = int(currTime + 13.5 * (int(endBlock) - blockNum))
+
+            # Stop looping on proposals if proposals out of scope
+            if endTime < (currTime - timeblock):
+                break
 
             # No TxHash
             # print(endTime)
             proposals.append(Proposal(id, platform, title, endTime, None, state, link))
         # print(proposals)
         return proposals
-
-    # print(getProposals())

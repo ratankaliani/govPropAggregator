@@ -5,7 +5,6 @@ from swagger_server.models.proposal import Proposal  # noqa: E501
 from swagger_server import util
 from swagger_server.scripts.proposalList import getProposals
 
-
 def get_proposals(timeblock):  # noqa: E501
     """Gets List of Proposals
 

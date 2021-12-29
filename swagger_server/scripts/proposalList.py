@@ -11,9 +11,10 @@ def getProposals(timeblock):
     # print(timeblock)
     cutoff = time.time() - (timeblock)
     # get Proposals
-    compProposals = Compound.getProposals()
-    aaveProposals = Aave.getProposals()
-    uniswapProposals = Uniswap.getProposals()
+
+    compProposals = Compound.getProposalsFast(timeblock)
+    aaveProposals = Aave.getProposalsFast(timeblock)
+    uniswapProposals = Uniswap.getProposalsFast(timeblock)
     # combine Proposals
     allProposals = []
     allProposals.extend(compProposals)

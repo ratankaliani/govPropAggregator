@@ -17,7 +17,7 @@ class Aave:
         blockNumber = int(data['height'])
         return blockNumber
 
-    def getProposals():
+    def getProposalsFast(timeblock):
         # Get last block number
         url = ("https://api.thegraph.com/subgraphs/name/aave/governance-v2")
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
@@ -68,7 +68,12 @@ class Aave:
                 state = stateDefinition[state]
                 
             link = "https://app.aave.com/#/" + str(id) + "-" + str(ipfsHash)
-            endTime = int(time.time() + 13.5 * (int(endBlock) - blockNum))
+            currTime = time.time()
+            endTime = int(currTime + 13.5 * (int(endBlock) - blockNum))
+
+            # Stop looping on proposals if proposals out of scope
+            if endTime < (currTime - timeblock):
+                break
 
             # No TxHash
             # print(endTime)
@@ -76,5 +81,3 @@ class Aave:
         # print("Aave")
         # print(len(proposals))
         return proposals
-
-    # print(getProposals())

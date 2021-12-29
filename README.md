@@ -51,3 +51,7 @@ docker run -p 8080:8080 swagger_server
 ## Example Query
 
 http://localhost:8080/ratan00/ProposalBot/1.0.0/proposal/getProposals?timeblock=50000
+
+## Thoughts
+
+Should turn this into a subgraph at some point - need to spend time to get that data formatted!

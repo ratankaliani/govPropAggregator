@@ -1,5 +1,6 @@
 import requests 
 from swagger_server.models.proposal import Proposal  # noqa: E501
+import time
 
 class Compound:
 
@@ -10,7 +11,8 @@ class Compound:
         blockNumber = int(data['height'])
         return blockNumber
 
-    def getProposals():
+    # Time Efficient Get Proposals
+    def getProposalsFast(timeblock):
         url = ("https://api.compound.finance/api/v2/governance/proposals")
         header = {"Authorization": "hibnn:11111:77788777YT666:CAL1"} 
         response = requests.get(url, headers=header) 
@@ -43,6 +45,11 @@ class Compound:
             endTime = state["end_time"]
             if endTime is None:
                 endTime = state['start_time']
+
+            # Stop looping on proposals if proposals out of scope
+            if endTime < (time.time() - timeblock):
+                break
+
             txHash = state["trx_hash"]
             link = "https://compound.finance/governance/proposals/" + str(id)
             status = state['state']
@@ -50,6 +57,4 @@ class Compound:
             proposals.append(Proposal(id, platform, title, endTime, txHash, status, link))
         # print(proposals)
         return proposals
-
-    # print(getProposals())
 
