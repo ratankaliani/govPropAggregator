@@ -38,18 +38,26 @@ paths:
         required: false
         type: "integer"
         default: 86400
+      - name: platforms
+        in: query
+        description: Platform(s) to get proposals from, must be comma-separated string
+        required: false
+        type: "string"
+        default: ""
       responses:
         "200":
           description: "successful operation"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Proposal"
+            type: object
+            properties:
+              proposals:
+                items:
+                  $ref: '#/definitions/Proposal'
         "400":
           description: "Invalid timeblock"
         "500":
           description: "API errored"
-      x-swagger-router-controller: "swagger_server.controllers.proposal_controller"
+      x-swagger-router-controller: "server.controllers.proposal_controller"
 securityDefinitions:
   api_key:
     type: "apiKey"

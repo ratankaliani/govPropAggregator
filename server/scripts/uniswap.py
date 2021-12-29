@@ -7,7 +7,7 @@
 
 
 import requests 
-from swagger_server.models.proposal import Proposal  # noqa: E501
+from server.models.proposal import Proposal  # noqa: E501
 import time
 import re
 class Uniswap:

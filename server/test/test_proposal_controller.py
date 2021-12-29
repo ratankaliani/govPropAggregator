@@ -5,8 +5,8 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.proposal import Proposal  # noqa: E501
-from swagger_server.test import BaseTestCase
+from server.models.proposal import Proposal  # noqa: E501
+from server.test import BaseTestCase
 
 
 class TestProposalController(BaseTestCase):
@@ -17,7 +17,7 @@ class TestProposalController(BaseTestCase):
 
         Gets List of Proposals
         """
-        query_string = [('timeblock', 24*60*60)]
+        query_string = [('timeblock', 24*60*60), ('platforms', '')]
         response = self.client.open(
             '/proposal/getProposals',
             method='GET',
